@@ -4,6 +4,16 @@ import random
 import colorsys
 import argparse
 
+#added this after Gemini debugged
+from PIL.Image import Resampling  # Import the Resampling class
+
+
+
+
+
+
+
+
 
 def random_point(image_size_px: int, padding: int):
     return random.randint(padding, image_size_px - padding)
@@ -113,9 +123,15 @@ def generate_art(collection: str, name: str):
         image = ImageChops.add(image, overlay_image)
 
     # Image is done! Now resize it to be smooth.
+
+    #this line of code was added by Gemini to debug
     image = image.resize(
-        (image_size_px // rescale, image_size_px // rescale), resample=Image.ANTIALIAS
+        (image_size_px // rescale, image_size_px // rescale), resample=Image.Resampling.LANCZOS
     )
+    # I have commented out the old code replced by lines above
+    #image = image.resize(
+        #(image_size_px // rescale, image_size_px // rescale), resample=Image.ANTIALIAS
+    #)
 
     # Save the image.
     image.save(image_path)
